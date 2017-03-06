@@ -2,7 +2,7 @@ subprojects {
   apply plugin: 'java'
   
   dependencies{
-  	 compile group: 'com.google.guava', name: 'guava', version: '21.0'
+  	 compile group: 'com.google.guava', name: 'guava', version: '20.0'
   	 compile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
   }
 
