@@ -1,5 +1,8 @@
 package hu.bme.mit.train.controller;
 
+import java.util.Date;
+
+import hu.bme.mit.train.interfaces.Tachograph;
 import hu.bme.mit.train.interfaces.TrainController;
 
 public class TrainControllerImpl implements TrainController {
@@ -7,6 +10,7 @@ public class TrainControllerImpl implements TrainController {
 	private int step = 0;
 	private int referenceSpeed = 0;
 	private int speedLimit = 0;
+	private Tachograph tcg = new Tachograph();
 
 	@Override
 	public void followSpeed() {
@@ -15,8 +19,8 @@ public class TrainControllerImpl implements TrainController {
 		} else {
 			referenceSpeed += step;
 		}
-
 		enforceSpeedLimit();
+		tcg.addEntry(new Date(), step, referenceSpeed);
 	}
 
 	@Override
@@ -40,6 +44,11 @@ public class TrainControllerImpl implements TrainController {
 	@Override
 	public void setJoystickPosition(int joystickPosition) {
 		this.step = joystickPosition;		
+	}
+	
+	@Override
+	public Tachograph getTachograph(){
+		return tcg;
 	}
 
 }

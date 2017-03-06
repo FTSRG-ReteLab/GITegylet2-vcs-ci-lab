@@ -1,9 +1,11 @@
 package hu.bme.mit.train.system.test;
 
 import org.junit.Assert;
+import org.hamcrest.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import hu.bme.mit.train.interfaces.Tachograph;
 import hu.bme.mit.train.interfaces.TrainController;
 import hu.bme.mit.train.interfaces.TrainSensor;
 import hu.bme.mit.train.interfaces.TrainUser;
@@ -55,6 +57,25 @@ public class TrainSystemTest {
 		Assert.assertEquals(false, user.getAlarmFlag());
 		user.setAlarmFlag(true);
 		Assert.assertEquals(true, user.getAlarmFlag());
+	}
+	
+	@Test
+	public void test4() {
+		sensor.overrideSpeedLimit(15);
+
+		Assert.assertEquals(0, controller.getReferenceSpeed());
+		
+		user.overrideJoystickPosition(5);
+
+		controller.followSpeed();
+		Assert.assertEquals(5, controller.getReferenceSpeed());
+		controller.followSpeed();
+		Assert.assertEquals(10, controller.getReferenceSpeed());
+		controller.followSpeed();
+		Assert.assertEquals(15, controller.getReferenceSpeed());
+		
+		Assert.assertFalse(controller.getTachograph().table.isEmpty());
+		
 	}
 
 	

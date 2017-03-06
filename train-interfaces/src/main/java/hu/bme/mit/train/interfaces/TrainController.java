@@ -1,7 +1,7 @@
 package hu.bme.mit.train.interfaces;
 
 public interface TrainController {
-
+	
 	void followSpeed();
 
 	int getReferenceSpeed();
@@ -9,5 +9,7 @@ public interface TrainController {
 	void setSpeedLimit(int speedLimit);
 
 	void setJoystickPosition(int joystickPosition);
+
+	Tachograph getTachograph();
 
 }
